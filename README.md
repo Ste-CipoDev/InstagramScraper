@@ -8,14 +8,24 @@ Un'estensione Chrome Manifest V3 sviluppata per trovare rapidamente:
 
 ---
 
-## 🚀 Come installare l'estensione su Chrome (in 10 secondi)
+## 🚀 Come installare l'estensione
 
-1. Apri **Google Chrome** (o Edge / Brave).
-2. Nella barra degli indirizzi digita: `chrome://extensions` e premi Invio.
-3. In alto a destra, attiva lo switch **"Modalità sviluppatore"** (Developer mode).
-4. In alto a sinistra, clicca sul pulsante **"Carica estensione non pacchettizzata"** (Load unpacked).
-5. Seleziona la cartella: `C:\temp\Instagram Scraper` e premi **Seleziona cartella**.
-6. L'estensione comparià nella lista e potrai fissarla sulla barra degli strumenti di Chrome cliccando sull'icona a forma di tassello del puzzle 🧩!
+### 1. Scarica i file del progetto
+* Clicca in alto su **Code** > **Download ZIP** ed estrai l'archivio in una cartella a tua scelta sul computer.
+* *In alternativa, puoi clonare il repository da terminale*:
+  ```bash
+  git clone https://github.com/Ste-CipoDev/InstagramScraper.git
+  ```
+
+### 2. Carica l'estensione su Chrome (o Brave / Edge)
+1. Apri il browser e digita nella barra degli indirizzi: `chrome://extensions` (premi Invio).
+2. In alto a destra, attiva lo switch **"Modalità sviluppatore"** (*Developer mode*).
+3. In alto a sinistra, clicca sul pulsante **"Carica estensione non pacchettizzata"** (*Load unpacked*).
+4. Seleziona la cartella del progetto appena estratta (assicurati di selezionare la cartella che contiene direttamente il file `manifest.json`).
+5. L'estensione sarà visibile nella lista: clicca sull'icona a forma di tassello del puzzle 🧩 in alto a destra del browser per fissarla sulla barra degli strumenti.
+
+> [!TIP]
+> Se avevi già una scheda di Instagram aperta prima di caricare l'estensione, **ricarica la pagina di Instagram (F5)** in modo che l'estensione possa rilevare la sessione attiva.
 
 ---
 
