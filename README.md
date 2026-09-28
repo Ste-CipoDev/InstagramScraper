@@ -1,5 +1,7 @@
 # Instagram Follower & Unfollower Tracker (Estensione Chrome)
 
+[![Licenza MIT](https://img.shields.io/badge/Licenza-MIT-blue.svg?style=flat-square)](LICENSE)
+
 Un'estensione Chrome Manifest V3 sviluppata per trovare rapidamente:
 * 🔴 **Chi non ti segue a sua volta** (Unfollowers)
 * 🔵 **Chi non segui tu a tua volta**
@@ -51,3 +53,31 @@ Un'estensione Chrome Manifest V3 sviluppata per trovare rapidamente:
   * **Resilienza 429**: In caso di temporaneo rate limit, l'estensione entra in cooldown con conto alla rovescia e salva i dati parziali raccolti prima di fermarsi.
   * **Rilevamento Checkpoint**: Intercettazione immediata di eventuali captcha o verifiche SMS per evitare sanzioni all'account.
   * **Unfollow Sicuro**: Le azioni verso Instagram aprono la scheda ufficiale del profilo per consentire l'unfollow legittimo, eliminando le chiamate API non autorizzate che causano gli *Action Block*.
+
+---
+
+## ⚠️ Disclaimer e Avviso sul Rischio di Ban
+
+Questo software è distribuito **esclusivamente a scopo didattico, di studio e di ricerca sui meccanismi di web scraping ed estensioni browser**.
+
+> [!CAUTION]
+> **Nessun bot o scraper è sicuro al 100%**:  
+> Nonostante tutte le precauzioni tecniche, i ritardi con jitter casuale e i cooldown implementati, **l'utilizzo di questo strumento non è comunque sicuro al 100%**.
+> 
+> Lo scraping automatizzato e le interrogazioni ripetute violano formalmente i Termini di Servizio (ToS) di Instagram e Meta Platforms, Inc. I loro sistemi di sicurezza e algoritmi euristici analizzano costantemente impronte di sessione, frequenza delle chiamate e anomalie di comportamento.
+> 
+> **Instagram e Meta possono tranquillamente decidere in qualsiasi momento e a loro esclusiva discrezione di applicare blocchi temporanei (action block), richiedere checkpoint di sicurezza o bannare ed eliminare permanentemente il profilo utilizzato se rilevano utilizzi impropri o non autorizzati, compreso l'utilizzo di questa stessa estensione.**
+
+### Raccomandazioni:
+* **Evita di usare il tuo account principale o aziendale**: per qualsiasi test o scansione massiva, è caldamente consigliato impiegare profili secondari o sacrificabili.
+* Mantieni i tempi di attesa elevati (slider consigliato: **3.5s - 5.0s**) ed evita scansioni continue e ravvicinate.
+
+### Esclusione di Responsabilità:
+Questo progetto è un software indipendente e non è in alcun modo affiliato, autorizzato, sponsorizzato o supportato da Instagram o Meta Platforms, Inc.  
+L'autore **non si assume alcuna responsabilità** per account sospesi, sanzionati o bannati, violazioni dei Termini di Servizio o perdite di dati derivanti dall'utilizzo (proprio o improprio) di questa estensione. L'utente finale è l'unico ed esclusivo responsabile del proprio operato.
+
+---
+
+## 📄 Licenza
+
+Rilasciato sotto licenza [MIT](LICENSE). Libero per uso didattico e personale.
