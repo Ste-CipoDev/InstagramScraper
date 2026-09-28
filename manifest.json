@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "Instagram Follower & Unfollower Tracker",
+  "version": "1.0.0",
+  "description": "Individua chi non ti segue a tua volta su Instagram in modo sicuro e senza rischiare il ban.",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://*.instagram.com/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Instagram Unfollower Tracker"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*.instagram.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}

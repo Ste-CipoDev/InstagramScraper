@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instagram Unfollower Tracker</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="logo-title">
+        <svg class="ig-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+        </svg>
+        <div>
+          <h1>Unfollower Tracker</h1>
+          <span class="version-tag">Manifest V3 • Sicuro</span>
+        </div>
+      </div>
+      <div class="header-right">
+        <div id="userBadge" class="user-badge disconnected">
+          <span class="status-dot"></span>
+          <span id="userStatusText">Controllo connessione...</span>
+        </div>
+        <button id="btnOpenFullTab" class="btn-icon-header" title="Apri in scheda intera (consigliato per scansioni lunghe)">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Banner Avviso Instagram se non connesso -->
+    <div id="noTabWarning" class="alert-box warning-box hidden">
+      <p>⚠️ Per favore apri una scheda su <strong>instagram.com</strong> e assicurati di aver effettuato l'accesso.</p>
+      <button id="btnOpenIG" class="btn btn-small btn-secondary">Apri Instagram</button>
+    </div>
+
+    <!-- Banner Allarme Checkpoint / Challenge -->
+    <div id="checkpointAlert" class="alert-box danger-box hidden">
+      <div class="danger-title">🛑 Verifica di sicurezza richiesta da Instagram!</div>
+      <p id="checkpointMsg">Instagram ha richiesto una verifica (challenge/checkpoint). Le richieste sono state interrotte per proteggere il tuo account da blocchi permanenti.</p>
+      <a id="btnSolveCheckpoint" href="https://www.instagram.com" target="_blank" class="btn btn-small btn-danger">Apri Instagram e completa la verifica ↗</a>
+    </div>
+
+    <!-- Controlli di Scansione -->
+    <section class="controls-card">
+      <div class="delay-slider-container">
+        <div class="slider-header">
+          <label for="delaySlider">Attesa base tra le richieste (Anti-Ban):</label>
+          <span id="delayValue" class="delay-badge">3.0s</span>
+        </div>
+        <input type="range" id="delaySlider" min="2.5" max="8.0" step="0.5" value="3.0">
+        <p class="slider-hint">Include variazione casuale (-20%/+40%) e pause di raffreddamento a lotti.</p>
+      </div>
+
+      <div class="button-group">
+        <button id="btnStart" class="btn btn-primary">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          Avvia Scansione
+        </button>
+        <button id="btnPause" class="btn btn-secondary hidden">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+          Pausa
+        </button>
+        <button id="btnReset" class="btn btn-outline">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+          Azzera
+        </button>
+      </div>
+    </section>
+
+    <!-- Barra Avanzamento -->
+    <section id="progressSection" class="progress-section hidden">
+      <div class="progress-info">
+        <span id="progressStatus">Analisi in corso...</span>
+        <span id="progressPercent">0%</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div id="progressBarFill" class="progress-bar-fill" style="width: 0%;"></div>
+      </div>
+      <div class="counters-live">
+        <span>Seguiti scaricati: <strong id="liveFollowingCount">0</strong></span>
+        <span>Follower scaricati: <strong id="liveFollowersCount">0</strong></span>
+      </div>
+    </section>
+
+    <!-- Schede di Filtro Risultati -->
+    <section id="resultsSection" class="results-section hidden">
+      <nav class="tabs-nav">
+        <button class="tab-btn active" data-tab="not_following_back">
+          🔴 Non ti seguono <span id="badgeNotFollowingBack" class="tab-badge">0</span>
+        </button>
+        <button class="tab-btn" data-tab="not_followed_back">
+          🔵 Non li segui <span id="badgeNotFollowedBack" class="tab-badge">0</span>
+        </button>
+        <button class="tab-btn" data-tab="mutual">
+          🟢 Reciproci <span id="badgeMutual" class="tab-badge">0</span>
+        </button>
+        <button class="tab-btn" data-tab="all_following">
+          👥 Seguiti <span id="badgeAllFollowing" class="tab-badge">0</span>
+        </button>
+        <button class="tab-btn" data-tab="all_followers">
+          👤 Follower <span id="badgeAllFollowers" class="tab-badge">0</span>
+        </button>
+      </nav>
+
+      <!-- Barra di Ricerca ed Esportazione -->
+      <div class="toolbar">
+        <div class="search-box">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="searchInput" placeholder="Cerca username o nome...">
+        </div>
+
+        <div class="export-actions">
+          <button id="btnCopyUsernames" class="btn btn-icon" title="Copia tutti gli username negli appunti">
+            📋 Copia
+          </button>
+          <button id="btnExportCSV" class="btn btn-icon" title="Esporta in CSV">
+            📥 CSV
+          </button>
+          <button id="btnExportJSON" class="btn btn-icon" title="Esporta in JSON">
+            📥 JSON
+          </button>
+        </div>
+      </div>
+
+      <!-- Lista Risultati -->
+      <div id="usersList" class="users-list">
+        <!-- I risultati verranno inseriti qui da JavaScript -->
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <span>Tutti i dati rimangono riservati sul tuo computer.</span>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
